@@ -62,14 +62,14 @@ fun TransactionDialogContent(
                 }
 
                 TextButton(onClick = { save(false) }, enabled = !saveDisabled) {
-                    Text(text = "Minus", color =
+                    Text(text = "Return", color =
                         if (isSystemInDarkTheme()) Color(0xFFE00000)
                         else Color(0xFF8B0000)
                     )
                 }
                 TextButton(onClick = { save(true) }, enabled = !saveDisabled) {
                     Text(
-                        text = "Plus", color =
+                        text = "Debt", color =
                         if (isSystemInDarkTheme())
                             Color(0xFF00F000)
                         else Color(0xFF008B00)

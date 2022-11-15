@@ -20,7 +20,7 @@ fun ContactsScreen(modifier: Modifier = Modifier, viewModel: ContactsViewModel =
     val context = LocalContext.current
 
     LaunchedEffect(key1 = Unit)  {
-        viewModel.loadData(context)
+        viewModel.loadData()
     }
 
     AnimatedContent(targetState = currentState::class.simpleName) {

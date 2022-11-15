@@ -15,6 +15,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import uz.qmgroup.debtbook.domain.repositories.RepositoryStore
 import uz.qmgroup.debtbook.ui.providers.LocalSnackbarHostState
 import uz.qmgroup.debtbook.ui.screens.contacts.ContactsScreen
 import uz.qmgroup.debtbook.ui.theme.DebtBookTheme
@@ -23,6 +24,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        RepositoryStore.initializeRepositories(this)
         setContent {
             DebtBookTheme {
                 val snackbarHostState = remember { SnackbarHostState() }

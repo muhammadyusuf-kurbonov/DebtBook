@@ -43,7 +43,7 @@ fun ContactDialog(
                         balance = NumberFormat.getCurrencyInstance().parseOrNull(it)?.toFloat() ?: 0f
                     },
                     cancel = dismiss,
-                    save = { viewModel.save(context, name, balance) },
+                    save = { viewModel.save(name, balance) },
                     saveDisabled = state is ContactDialogState.SavePending
                 )
             }

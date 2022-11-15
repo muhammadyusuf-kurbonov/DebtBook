@@ -1,6 +1,5 @@
 package uz.qmgroup.debtbook.ui.screens.contacts
 
-import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import uz.qmgroup.debtbook.data.AppDatabase
+import uz.qmgroup.debtbook.domain.repositories.RepositoryStore
 
 class ContactsViewModel : ViewModel() {
     private val _currentState = MutableStateFlow<ContactsScreenState>(ContactsScreenState.Loading)
@@ -23,17 +22,11 @@ class ContactsViewModel : ViewModel() {
     var contactIdForNewTransaction by mutableStateOf<Int?>(null)
         private set
 
-    fun loadData(context: Context) {
+    fun loadData() {
         viewModelScope.launch {
-            val dao = AppDatabase.getDatabase(context).contactsDao
-
             _currentState.emitAll(
-                dao.getAllContacts().map {
-                    ContactsScreenState.ContactsLoaded(
-                        it.map { entity ->
-                            entity.toDomainModel()
-                        }
-                    )
+                RepositoryStore.repository.findAllContacts().map {
+                    ContactsScreenState.ContactsLoaded(it)
                 }
             )
         }

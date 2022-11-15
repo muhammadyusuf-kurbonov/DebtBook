@@ -1,23 +1,21 @@
 package uz.qmgroup.debtbook.ui.screens.contactDialog
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import uz.qmgroup.debtbook.data.AppDatabase
-import uz.qmgroup.debtbook.data.ContactEntity
+import uz.qmgroup.debtbook.domain.models.Contact
+import uz.qmgroup.debtbook.domain.repositories.RepositoryStore
 
 class ContactDialogViewModel : ViewModel() {
     private val _state = MutableStateFlow<ContactDialogState>(ContactDialogState.DataInput)
     val state = _state.asStateFlow()
 
-    fun save(context: Context, name: String, balance: Float) {
+    fun save(name: String, balance: Float) {
         _state.tryEmit(ContactDialogState.SavePending)
         viewModelScope.launch {
-            val dao = AppDatabase.getDatabase(context).contactsDao
-            dao.insert(ContactEntity(name = name, balance = balance))
+            RepositoryStore.repository.saveNew(Contact(name = name, balance = balance))
             _state.tryEmit(ContactDialogState.SaveCompleted)
         }
     }

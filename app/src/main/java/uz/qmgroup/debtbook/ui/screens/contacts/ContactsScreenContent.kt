@@ -38,7 +38,7 @@ fun ContactsScreenContent(
                     ContactItem(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 8.dp, vertical = 1.dp),
+                            .padding(horizontal = 8.dp),
                         contactName = it.name,
                         balance = it.balance,
                         onClick = { newTransactionDialogRequest(it.id!!) }
