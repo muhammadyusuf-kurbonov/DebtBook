@@ -44,7 +44,7 @@ fun TransactionDialog(
                             NumberFormat.getCurrencyInstance().parseOrNull(it)?.toFloat() ?: 0f
                     },
                     cancel = dismiss,
-                    save = { add -> viewModel.save(context, id, balance, add) },
+                    save = { add -> viewModel.save(currentState.contact!!, balance, add) },
                     saveDisabled = state is TransactionDialogState.PatchPending
                 )
             }

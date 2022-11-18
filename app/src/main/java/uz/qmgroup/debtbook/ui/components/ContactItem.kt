@@ -28,13 +28,23 @@ fun ContactItem(
 ) {
     Card(modifier = modifier, shape = RoundedCornerShape(6.dp), onClick = onClick) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = contactName, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(end = 8.dp))
+            Text(
+                text = contactName,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(end = 8.dp)
+            )
 
-            Text(text = NumberFormat.getCurrencyInstance().format(balance), style = MaterialTheme.typography.bodyMedium)
+            Text(
+                text = NumberFormat.getCurrencyInstance().format(balance),
+                style = MaterialTheme.typography.bodyMedium,
+                color = if (balance < 0) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
+            )
         }
     }
 }
@@ -47,13 +57,16 @@ fun ContactsItemPreview() {
         balance = 1.7f
     )
 }
+
 @Preview(showSystemUi = true)
 @Composable
 fun ContactsItemsListPreview() {
     LazyColumn {
         items(15) {
             ContactItem(
-                modifier = Modifier.fillMaxSize().padding(4.dp, 1.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(4.dp, 1.dp),
                 contactName = "Contact #${it}",
                 balance = -5f + it * 2
             )
